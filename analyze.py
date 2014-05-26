@@ -6,10 +6,10 @@ import argparse
 parser = argparse.ArgumentParser(description="Scan through STDIN for periods where more than given amount of power has been consumed.")
 parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=False, help="Print debug info.")
 parser.add_argument("-f", "--file", action="store", dest="filename", help="Path to file to read. Defaults to STDIN.")
-parser.add_argument("-s", "--separator", dest="separator", default=",", help="Specify the separation character. Defaults to comma.")
-parser.add_argument("-c", "--column", type=int, dest="dataCol", default=8, help="Specify the column of the input data that contains the data.")
-parser.add_argument("-t", "--time", type=float, dest="pTime", default=20, help="Specify the time limit for counter in seconds.")
-parser.add_argument("-p", "--power", type=float, dest="pLimit", default=500, help="Specify the power limit for the counter to be triggered.")
+parser.add_argument("-s", "--separator", dest="separator", default=",", help="Specify the separation character. Defaults to comma (,).")
+parser.add_argument("-c", "--column", type=int, dest="dataCol", default=8, help="Specify the column of the input data that contains the data. Defaults to column 8.")
+parser.add_argument("-t", "--time", type=float, dest="pTime", default=20, help="Specify the time limit for counter in seconds. Defaults to 20 seconds.")
+parser.add_argument("-p", "--power", type=float, dest="pLimit", default=500, help="Specify the power limit for the counter to be triggered. Defaults to 500 W.")
 
 args = parser.parse_args()
 if args.verbose:
