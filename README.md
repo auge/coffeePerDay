@@ -8,7 +8,9 @@ Usage
 
 Put your *.csv files in this directory and run ./coffeePerDay.sh
 
-You may run ./analyze.py -h to see all the options:
+Options given to coffeePerDay.sh will be passed to analyze.py
+
+You may run ./analyze.py -h to see all options:
 ```
 usage: analyze.py [-h] [-v] [-f FILENAME] [-s SEPARATOR] [-c DATACOL] [-t PTIME]
                   [-p PLIMIT]
