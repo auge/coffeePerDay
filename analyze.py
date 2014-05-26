@@ -1,40 +1,57 @@
 #!/usr/bin/env python
 
-import fileinput
+import sys
 import argparse
 
-verbose = False
+parser = argparse.ArgumentParser(description="Scan through STDIN for periods where more than given amount of power has been consumed.")
+parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=False, help="Print debug info.")
+parser.add_argument("-f", "--file", action="store", dest="filename", help="Path to file to read. Defaults to STDIN.")
+parser.add_argument("-s", "--separator", dest="separator", default=",", help="Specify the separation character. Defaults to comma.")
+parser.add_argument("-c", "--column", type=int, dest="dataCol", default=8, help="Specify the column of the input data that contains the data.")
+parser.add_argument("-t", "--time", type=float, dest="pTime", default=20, help="Specify the time limit for counter in seconds.")
+parser.add_argument("-p", "--power", type=float, dest="pLimit", default=500, help="Specify the power limit for the counter to be triggered.")
 
-parser = argparse.ArgumentParser(description="Scan through STDIN and list periods where more than 500 W of power were consumed")
-parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=False, help="show debug info")
-
-parser.parse_args()
+args = parser.parse_args()
+if args.verbose:
+	print args
 
 prevPower = 0.0
 risingTime = 0.0
 coffees = 0
 
-for line in fileinput.input():
-	items = line.split(",")
+if args.filename:
+	if args.verbose:
+		print "Opening "+args.filename
+	sys.stdin = open(args.filename)
+
+for line in sys.stdin:
+	items = line.split(args.separator)
+	t_str = items[0]
+	d_str = items[args.dataCol]
+	if d_str == "NULL":
+		pass
 	try:
-		time = float(items[0])
-		power = float(items[1])
+		time = float(t_str)
+		power = float(d_str)
+
+		if args.verbose:
+			print "time: %f; power: %f" % (time, power)
+
+		# rising edge:
+		if prevPower < args.pLimit and power > args.pLimit:
+			risingTime = time
+		# falling edge:
+		if prevPower > args.pLimit and power < args.pLimit:
+			period = time - risingTime
+			if args.verbose:
+				print risingTime, (period)
+			if period > args.pTime:
+				coffees += 1
+		# update power
+		prevPower = power
+
 	except ValueError:
 		pass
-	if verbose:
-		print "time: %f; power: %f" % (time, power)
-	# rising edge:
-	if prevPower < 500 and power > 500:
-		risingTime = time
-	# falling edge:
-	if prevPower > 500 and power < 500:
-		period = time - risingTime
-		if verbose:
-			print risingTime, (period)
-		if period > 20:
-			coffees += 1
-	
-	# update power
-	prevPower = power
 
+sys.stdin.close()
 print coffees
