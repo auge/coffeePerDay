@@ -9,7 +9,7 @@ Usage
 Put your *.csv files in this directory and run ./coffeePerDay.sh
 
 You may run ./analyze.py -h to see all the options:
-
+```
 usage: analyze.py [-h] [-v] [-f FILENAME] [-s SEPARATOR] [-c DATACOL] [-t PTIME]
                   [-p PLIMIT]
 
@@ -32,3 +32,4 @@ optional arguments:
   -p PLIMIT, --power PLIMIT
                         Specify the power limit for the counter to be triggered.
                         Defaults to 500 W.
+```
