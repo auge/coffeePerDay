@@ -23,7 +23,7 @@ def main(args):
 	required parameters (see arguments): separator, dataCol, pTime, pLimit
 	"""
 	if args.verbose:
-		print args
+		print(args)
 
 	prevPower = 0.0
 	risingTime = 0.0
@@ -31,7 +31,7 @@ def main(args):
 
 	if args.filename:
 		if args.verbose:
-			print "Opening "+args.filename
+			print("Opening "+args.filename)
 		sys.stdin = open(args.filename)
 
 	for line in sys.stdin:
@@ -45,7 +45,7 @@ def main(args):
 			power = float(d_str)
 
 			if args.verbose:
-				print "time: %f; power: %f" % (time, power)
+				print("time: %f; power: %f" % (time, power))
 
 			# rising edge:
 			if prevPower < args.pLimit and power > args.pLimit:
@@ -54,7 +54,7 @@ def main(args):
 			if prevPower > args.pLimit and power < args.pLimit:
 				period = time - risingTime
 				if args.verbose:
-					print risingTime, (period)
+					print(risingTime, (period))
 				if period > args.pTime:
 					coffees += 1
 			# update power
@@ -64,7 +64,7 @@ def main(args):
 			pass
 
 	sys.stdin.close()
-	print coffees
+	print(coffees)
 
 if __name__ == '__main__':
 	args = arguments()
