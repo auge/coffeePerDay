@@ -8,6 +8,11 @@ Usage
 
 Put your *.csv files in this directory and run ./coffeePerDay.sh
 
+Alternatively, you may call 
+```
+find path/to/csv-files -type f -name "*.csv" | while IFS= read -r; do echo $REPLY `./analyze.py "$@" < $REPLY`; done
+```
+
 Options given to coffeePerDay.sh will be passed to analyze.py
 
 You may run ./analyze.py -h to see all options:
