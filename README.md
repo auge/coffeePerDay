@@ -16,8 +16,8 @@ run this script with:
 ./integrate.sh /path/to/dataset/directory/ [integrate.py|integrateFile.py]
 ```
 
-# integrate.py will analyze a single column
-# integrateFile.py will analyze the whole file
+- integrate.py will analyze a single column
+- integrateFile.py will analyze the whole file
 
 Coffees per Day
 ---------------
