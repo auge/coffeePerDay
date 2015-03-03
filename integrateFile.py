@@ -2,7 +2,6 @@
 
 import sys
 import argparse
-from operator import add
 
 def arguments():
 	"""
@@ -38,17 +37,14 @@ def main(args):
 		if t_str == "timestamp":
 			continue
 		time = float(t_str)
-		power = []
-		for i in items:
-			i = i.strip()
-			power.append(0 if i == "NULL" else float(i))
+		power = [0 if i.strip() == "NULL" else float(i) for i in items]
 
 		if prev_t > 0:
 			delta_t = time - prev_t
 			if not energy:
-				energy = [val * delta_t for val in power]
+				energy = [p * delta_t for p in power]
 			else:
-				energy = map(add, [val * delta_t for val in power], energy)
+				energy = [e + p * delta_t for e,p in zip(energy, power)]
 
 		# update time
 		prev_t = time

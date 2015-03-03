@@ -35,27 +35,23 @@ def main(args):
 	for line in sys.stdin:
 		items = line.split(args.separator)
 		t_str = items[0]
+		if t_str == "timestamp":
+			continue
+		time = float(t_str)
 		d_str = items[args.dataCol]
-		if d_str == "NULL":
-			pass
-		try:
-			time = float(t_str)
-			power = float(d_str)
+		power = 0 if d_str == "NULL" else float(d_str.strip())	#	assume 0 for invalid reading
 
+		if args.verbose:
+			print("time: %f; power: %f" % (time, power))
+
+		if prev_t > 0:
+			delta_t = time - prev_t
+			energy += power * delta_t
 			if args.verbose:
-				print("time: %f; power: %f" % (time, power))
+				print("delta_t: %f; energy: %f" % (delta_t, energy))
 
-			if prev_t > 0:
-				delta_t = time - prev_t
-				energy += power * delta_t
-				if args.verbose:
-					print("delta_t: %f; energy: %f" % (delta_t, energy))
-
-			# update time
-			prev_t = time
-
-		except ValueError:
-			pass
+		# update time
+		prev_t = time
 
 	sys.stdin.close()
 	if args.kwh:
