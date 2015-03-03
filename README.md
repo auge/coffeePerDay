@@ -6,6 +6,22 @@ Parsing and analyzing collected data files from the measurement campaign of http
 Usage
 =====
 
+Integration
+-----------
+
+A set of scripts is provided to integrate the power consumption to obtain the total energy usage.
+
+run this script with:
+```
+./integrate.sh /path/to/dataset/directory/ [integrate.py|integrateFile.py]
+```
+
+# integrate.py will analyze a single column
+# integrateFile.py will analyze the whole file
+
+Coffees per Day
+---------------
+
 Put your *.csv files in this directory and run ./coffeePerDay.sh
 
 Alternatively, you may call 
