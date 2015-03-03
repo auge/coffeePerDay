@@ -7,7 +7,7 @@ def arguments():
 	"""
 	parsing command line arguments
 	"""
-	parser = argparse.ArgumentParser(description="Scan through STDIN for periods where more than given amount of power has been consumed.")
+	parser = argparse.ArgumentParser(description="Integrate a single column within a data file. Time is in column 0, data column can be selected.")
 	parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=False, help="Print debug info.")
 	parser.add_argument("-k", "--kwh", action="store_true", dest="kwh", default=False, help="output in kWh (instead of Ws)")
 	parser.add_argument("-f", "--file", action="store", dest="filename", help="Path to file to read. Defaults to STDIN.")
